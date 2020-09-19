@@ -75,35 +75,35 @@ public:
 
 	const Uint8* keyState = nullptr;
 
-	void pollEvents()
+	void PollEvents()
 	{
 		keyState = SDL_GetKeyboardState(NULL);
 	}
 
-	bool popEvent()
+	bool PopEvent()
 	{
 		return SDL_PollEvent(&event);
 	}
 
 #pragma warning(disable:26812) // disables enum class warning
-	bool getKeyDown(SDL_KeyCode key)
+	bool GetKeyDown(SDL_KeyCode key)
 	{
 		return event.type == SDL_KEYDOWN &&
 			event.key.keysym.sym == key;
 	}
 
-	bool getKeyUp(SDL_KeyCode key)
+	bool GetKeyUp(SDL_KeyCode key)
 	{
 		return event.type == SDL_KEYUP &&
 			event.key.keysym.sym == key;
 	}
 
-	bool getKey(SDL_Scancode key)
+	bool GetKey(SDL_Scancode key)
 	{
 		return keyState[key];
 	}
 
-	bool getMouseDown(int i)
+	bool GetMouseDown(int i)
 	{
 		return event.type == SDL_MOUSEBUTTONDOWN &&
 			event.button.button == i;
@@ -123,6 +123,7 @@ public:
 		SDL_RenderPresent(renderer);
 	}
 
+	// Time from start, in seconds
 	double time()
 	{
 		return SDL_GetTicks() * 0.001;
@@ -149,17 +150,17 @@ public:
 			SDL_MAX_UINT8);
 	}
 
-	void drawLine(SDL_FPoint p1, SDL_FPoint p2)
+	void DrawLine(SDL_FPoint p1, SDL_FPoint p2)
 	{
 		SDL_RenderDrawLineF(renderer, p1.x, p1.y, p2.x, p2.y);
 	}
 
-	void drawRay(SDL_FPoint pos, SDL_FPoint dir)
+	void DrawRay(SDL_FPoint pos, SDL_FPoint dir)
 	{
 		SDL_RenderDrawLineF(renderer, pos.x, pos.y, pos.x + dir.x, pos.y + dir.y);
 	}
 
-	void drawRect(float x, float y, float w, float h)
+	void DrawRect(float x, float y, float w, float h)
 	{
 		SDL_FRect r = { x, y, w, h };
 		SDL_RenderFillRectF(renderer, &r);
