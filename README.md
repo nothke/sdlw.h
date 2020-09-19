@@ -26,9 +26,9 @@ But here's a quick one if you use Visual Studio:
 2. Make a folder in your project like `MyProject\deps\sdl` for example;
 3. Put include and libs from the pack you downloaded into that folder;
 4. In Visual Studio, open project properties - right click in Solution Explorer on your project (should have ++ icon in vs2019) and select Properties;
-5. In `C/C++ > General > Additional Include Directories` add your include folder, which is in my example `$(ProjectDir)deps\sdl\include;` (don't forget to delimit with `;`);
-6. In `Linker > General > Additional Library Directories` add `$(ProjectDir)deps\sdl\lib\x86 (if 32 bit project) or x64 (if 64 bit project);`
-7. In `Linker > Input > Additional Dependencies` add `SDL2.lib;SDL2main.lib;`
+5. In _C/C++ > General > Additional Include Directories_ add your include folder, which is in my example `$(ProjectDir)deps\sdl\include;` (don't forget to delimit with `;`);
+6. In _Linker > General > Additional Library Directories_ add `$(ProjectDir)deps\sdl\lib\x86` (if 32 bit project) or `\x64` (if 64 bit project);`
+7. In _Linker > Input > Additional Dependencies_ add `SDL2.lib;SDL2main.lib;`
 8. Build your project. If you run it, it SHOULD tell you that SDL2.dll is missing;
-9. Now take SDL2.dll from your package (found in lib\x86 or lib\x64) and put it in your binary folder. By default that should be ProjectFolder\Debug or ProjectFolder\Release (you'll need to add to the binary folder of each of your configurations once you build them);
+9. Now take `SDL2.dll` from your package (found in lib\x86 or lib\x64) and put it in your binary folder. By default that should be ProjectFolder\Debug or ProjectFolder\Release (you'll need to add to the binary folder of each of your configurations once you build them);
 10. Now when you run it, it should work!
