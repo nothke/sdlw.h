@@ -15,7 +15,18 @@ This wrapper is not feature-full, it's MEANT to be changed by YOU and you should
 ## Example
 See example.cpp on how to use it to draw a rectangle
 
+## Installation
+Just drop sdlw.h in your source files and `#include "sdlw.h"` in your main cpp (for example).
+
 ## Requirements
-You'll need SDL2 installed.
+You'll need [SDL2](https://www.libsdl.org/download-2.0.php) linked to your project. There's plenty of tutorials online on how to do that. 
 
-
+But here's a quick one if you use Visual Studio:
+1. Download a development package from [here](https://www.libsdl.org/download-2.0.php);
+2. Make a folder in your project like `MyProject\deps\sdl` for example;
+3. Put include and libs from the pack you downloaded into that folder;
+4. In Visual Studio, open project properties - right click in Solution Explorer on your project (should have ++ icon in vs2019) and select Properties;
+5. In `C/C++ > General > Additional Include Directories` add your include folder, which is in my example `$(ProjectDir)deps\sdl\include;` (don't forget to delimit with `;`);
+6. In `Linker > General > Additional Library Directories` add `$(ProjectDir)deps\sdl\lib\x64;`
+7. In `Linker > Input > Additional Dependencies` add `SDL2.lib;SDL2main.lib`
+8. Build your project and everything should work!
