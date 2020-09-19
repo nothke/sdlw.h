@@ -14,24 +14,24 @@ int main(int argc, char *argv[])
     while (!quit)
     {
         // This is needed to be able to use GetKey();
-        sdl.pollEvents();
+        sdl.PollEvents();
 
-        while (sdl.popEvent())
+        while (sdl.PopEvent())
         {
             // in getKeyUp and getKeyDown you should use SDLK_* ..
-            if (sdl.getKeyDown(SDLK_ESCAPE))
+            if (sdl.GetKeyDown(SDLK_ESCAPE))
                 quit = true;
         }
 
         // ..while in getKey() you must use SDL_SCANCODE_*
-        rectPosX += sdl.getKey(SDL_SCANCODE_A) ? -1 : (sdl.getKey(SDL_SCANCODE_D) ? 1 : 0);
+        rectPosX += sdl.GetKey(SDL_SCANCODE_A) ? -1 : (sdl.GetKey(SDL_SCANCODE_D) ? 1 : 0);
 
         // Clear the screen to black
         sdl.Clear();
 
         // Draw a red square
         sdl.SetColor01(1, 0, 0);
-        sdl.drawRect(rectPosX, 100, 100, 100);
+        sdl.DrawRect(rectPosX, 100, 100, 100);
 
         sdl.Render();
     }
