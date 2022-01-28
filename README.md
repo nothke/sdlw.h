@@ -13,7 +13,42 @@ This wrapper is not feature-full, it's MEANT to be changed by YOU and you should
     * Query mouse position with mouseX() and mouseY();
 
 ## Example
-See example.cpp on how to use it to draw a rectangle
+Simple example:
+
+``` cpp
+#include "sdlw.h"
+
+int main(int argc, char* argv[]) {
+
+	SDLW sdlw;
+	sdlw.Init("My SDLW App", 800, 600);
+
+	while (sdlw.IsRunning())
+	{
+		while (sdlw.PopEvent())
+		{
+			// Put your event-based input here
+			if (sdlw.GetKeyDown(SDLK_ESCAPE))
+				sdlw.Close();
+		}
+
+		// Draw a red square
+		sdlw.SetColor01(1, 0, 0);
+		sdlw.DrawRect(
+			sdlw.getScreenWidth() / 2 - 50,
+			sdlw.getScreenHeight() / 2 - 50,
+			100, 100);
+
+		sdlw.Render();
+	}
+
+	return 0;
+}
+```
+
+For a more complex example see example.cpp.
+
+Note: You MUST have `int argc, char* argv[]` as the main argumentst otherwise you will get an "SDL unresolved external".
 
 ## Installation
 Just drop sdlw.h in your source files and `#include "sdlw.h"` in your main cpp (for example).
