@@ -75,18 +75,37 @@ public:
 
 		inited = true;
 
+		Clear();
+
 		return EXIT_SUCCESS;
 	}
 
 	const Uint8* keyState = nullptr;
 
-	bool IsRunning()
+	/// <summary>
+	/// Called automatically by IsRunning()
+	/// </summary>
+	void UpdateDeltaTime()
 	{
-		PollEvents();
-
 		double t = time();
 		frame_dt = static_cast<float>(t - lastFrameTime);
 		lastFrameTime = t;
+	}
+
+	/// <summary>
+	/// Polls events, updates deltaTime and clears the screen
+	/// </summary>
+	bool IsRunning(bool clear = true, bool render = true)
+	{
+		if (render)
+			Render();
+
+		PollEvents();
+
+		UpdateDeltaTime();
+
+		if (clear)
+			Clear();
 
 		return !wantsToClose;
 	}
@@ -96,11 +115,18 @@ public:
 		wantsToClose = true;
 	}
 
+	/// <summary>
+	/// Called automatically by IsRunning()
+	/// </summary>
 	void PollEvents()
 	{
 		keyState = SDL_GetKeyboardState(NULL);
 	}
 
+	/// <summary>
+	/// Call this in a while(PopEvent()) {} to get individual input events.
+	/// Then you can use sdlw.GetKeyDown() e.g. inside it.
+	/// </summary>
 	bool PopEvent()
 	{
 		return SDL_PollEvent(&event);
@@ -139,22 +165,28 @@ public:
 
 	void Render()
 	{
-		//SDL_UpdateWindowSurface(window);
-
 		SDL_RenderPresent(renderer);
 	}
 
-	// Time from start, in seconds
+	/// <summary>
+	/// Time from start, in seconds.
+	/// </summary>
 	double time()
 	{
 		return SDL_GetTicks() * 0.001;
 	}
 
+	/// <summary>
+	/// Time since the last frame.
+	/// </summary>
 	float deltaTime()
 	{
 		return frame_dt;
 	}
 
+	/// <summary>
+	/// Called automatically by the destructor.
+	/// </summary>
 	void Destroy()
 	{
 		SDL_DestroyRenderer(renderer);
