@@ -12,10 +12,15 @@ struct SDLW
 	SDL_Event event{};
 
 private:
-	bool inited = false;
+	bool inited{ false };
 
-	int screenWidth = 0;
-	int screenHeight = 0;
+	bool wantsToClose{ false };
+
+	int screenWidth{ 0 };
+	int screenHeight{ 0 };
+
+	float lastFrameTime{ 0 };
+	float frame_dt{ 0 };
 
 public:
 
@@ -75,6 +80,22 @@ public:
 
 	const Uint8* keyState = nullptr;
 
+	bool IsRunning()
+	{
+		PollEvents();
+
+		double t = time();
+		frame_dt = static_cast<float>(t - lastFrameTime);
+		lastFrameTime = t;
+
+		return !wantsToClose;
+	}
+
+	void Close()
+	{
+		wantsToClose = true;
+	}
+
 	void PollEvents()
 	{
 		keyState = SDL_GetKeyboardState(NULL);
@@ -127,6 +148,11 @@ public:
 	double time()
 	{
 		return SDL_GetTicks() * 0.001;
+	}
+
+	float deltaTime()
+	{
+		return frame_dt;
 	}
 
 	void Destroy()
